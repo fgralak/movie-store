@@ -1,5 +1,6 @@
 package com.gralak.moviestore.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gralak.moviestore.security.filter.CustomAuthenticationFilter;
 import com.gralak.moviestore.security.filter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
+    private final ObjectMapper objectMapper;
     private final JwtUtility jwtUtility;
 
     private static final String[] PUBLIC_URLS = {
@@ -40,7 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), jwtUtility);
+        CustomAuthenticationFilter customAuthenticationFilter =
+                new CustomAuthenticationFilter(authenticationManagerBean(), objectMapper, jwtUtility);
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
 
         http.csrf().disable();

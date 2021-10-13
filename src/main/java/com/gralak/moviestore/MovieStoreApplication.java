@@ -1,5 +1,6 @@
 package com.gralak.moviestore;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gralak.moviestore.appuser.AppUser;
 import com.gralak.moviestore.appuser.AppUserService;
 import org.springframework.boot.CommandLineRunner;
@@ -51,6 +52,12 @@ public class MovieStoreApplication
     public PasswordEncoder passwordEncoder()
     {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper()
+    {
+        return new ObjectMapper();
     }
 
 	/*@Bean

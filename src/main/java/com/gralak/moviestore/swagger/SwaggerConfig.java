@@ -33,7 +33,8 @@ public class SwaggerConfig
                         new Tag("Movie Controller", "All APIs responsible for Movies"),
                         new Tag("Warehouse Controller", "All APIs responsible for Warehouses"),
                         new Tag("App User Controller", "All APIs responsible for App Users"),
-                        new Tag("Movie-Warehouse Controller", "All APIs responsible for relations between Movies and Warehouses")
+                        new Tag("Movie-Warehouse Controller", "All APIs responsible for relations between Movies and Warehouses"),
+                        new Tag("Login Controller", "API to log into your account")
                 );
     }
 

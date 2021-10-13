@@ -1,5 +1,7 @@
 package com.gralak.moviestore.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gralak.moviestore.login.LoginCredentials;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -25,12 +27,17 @@ public class LoginTest
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Test
     void shouldLoginAndGetJWT() throws Exception
     {
+        LoginCredentials credentials = new LoginCredentials("user", "user");
+
         MvcResult login = mockMvc.perform(post("/api/login")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .content("username=user&password=user"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(credentials)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
